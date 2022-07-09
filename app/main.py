@@ -11,7 +11,7 @@ from .schemas.http_response import HTTPResponseWrapper,ErrorMessage
 
 from .core.json import Jsonify
 
-from .repositories.mqtt import mqtt_client
+from .repositories.mqtt import mqtt
 
 log = logger
 def create_http_server() -> FastAPI:
@@ -61,7 +61,7 @@ def configure_http_server(server: FastAPI) -> FastAPI:
     server = attach_exception_handler(server)
     
     #Adding MQTT service
-    mqtt_client.init_app(server)
+    mqtt.mqtt_client.init_app(server)
 
     return server
 
