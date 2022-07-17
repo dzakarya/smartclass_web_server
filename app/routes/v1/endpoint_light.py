@@ -1,14 +1,17 @@
 from fastapi import APIRouter
 from loguru import logger
+
+from app.repositories.light import get_light
 from ...schemas.api_response import ResponseGetValue
 from ...schemas.api_request import LightRequest
 router = APIRouter()
 
-@router.get("/get-light-value/",response_model=ResponseGetValue)
-async def getlightvalue(zone : int = 0):
+@router.get("/get-light",response_model=ResponseGetValue)
+async def gettempvalue():
+    value = get_light()
     return ResponseGetValue(
         data={
-            "value":5
+            "value":value
         },
         meta=None
     )
