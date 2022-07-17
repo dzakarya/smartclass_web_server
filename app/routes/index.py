@@ -8,7 +8,7 @@ router = APIRouter()
             description="health check",
             status_code=200)
 async def healthzx():
-    mqtt.mqtt_client.publish("smartclass","hello")
+    mqtt.mqtt_client.publish("in_temp_topic","hello")
     return Jsonify(
         content=HTTPResponseWrapper(
             error=False,

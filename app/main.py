@@ -58,11 +58,10 @@ def configure_http_server(server: FastAPI) -> FastAPI:
     server.include_router(index.router)
     server.include_router(api.api_router)
     log.info("adding sauce(s) to http server...")
-    server = attach_exception_handler(server)
-    
-    #Adding MQTT service
-    mqtt.mqtt_client.init_app(server)
-
+    server = attach_exception_handler(server)    
     return server
 
+
+
 app = configure_http_server(create_http_server())
+mqtt.mqtt_client.loop_start()
