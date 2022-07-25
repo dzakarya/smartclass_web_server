@@ -20,7 +20,5 @@ async def gettempvalue():
 async def setlightvalue(req: LightRequest):
     return{
         "zone1":req.zone1,
-        "value1":req.value1,
-        "zone2":req.zone2,
-        "value2":req.value2
+        "zone2":req.zone2
     }
