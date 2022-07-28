@@ -20,4 +20,4 @@ class DB():
         cur.execute(query,val)
         self.conn.commit()
         count = cur.rowcount
-        print(count, "Record inserted successfully into mobile table")
+        print(count, "Record inserted successfully")
