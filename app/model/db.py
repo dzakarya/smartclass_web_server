@@ -7,6 +7,7 @@ class DB():
             database=db_name,
             host=db_host,
             user=db_user,
+            charset='utf8', 
             password=db_password
         ) 
 
