@@ -1,17 +1,15 @@
 from ..config.constant import *
-import psycopg2
+import mysql.connector
 
 class DB():
     def __init__(self) -> None:
-        self.conn = psycopg2.connect(
+        self.conn = mysql.connector.connect(
             database=db_name,
             host=db_host,
             user=db_user,
-            password=db_password,
-            port=db_port
+            password=db_password
         ) 
 
-        self.conn.autocommit = True
     
     def insert_one(self, tab_name :str, value :float):
         cur = self.conn.cursor()
