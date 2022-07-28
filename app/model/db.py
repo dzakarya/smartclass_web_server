@@ -3,11 +3,13 @@ import mysql.connector
 
 class DB():
     def __init__(self) -> None:
-        self.conn = mysql.connector.connect(
-            database=db_name,
-            host=db_host,
-            user=db_user,
-            password=db_password
+        config = {
+            'database' : db_name,
+            'host':db_host,
+            'user':db_user,
+            'password':db_password
+        }
+        self.conn = mysql.connector.connect(**config
         ) 
 
     
