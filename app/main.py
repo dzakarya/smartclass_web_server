@@ -12,7 +12,7 @@ from .schemas.http_response import HTTPResponseWrapper,ErrorMessage
 from .core.json import Jsonify
 
 from .repositories.mqtt import mqtt
-
+from .model import db
 log = logger
 def create_http_server() -> FastAPI:
     """Create HTTP Server instance to hold the endpoints"""
