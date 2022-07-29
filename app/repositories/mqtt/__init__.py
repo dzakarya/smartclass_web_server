@@ -20,7 +20,8 @@ def on_message(client, userdata, msg):
     elif msg.topic == f'in_{smoke_topic}':
         mqtt.temp = float(msg.payload)
     elif msg.topic == f'in_{light_topic}':
-        mqtt.light = float(msg.light)
+        mqtt.light = float(msg.payload)
+    logger.info(msg)
 
 mqtt.mqtt_client.username_pw_set(mqtt.mqtt_config["username"],mqtt.mqtt_config["password"])
 mqtt.mqtt_client.on_connect = connect
