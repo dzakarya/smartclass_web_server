@@ -2,7 +2,7 @@ from pydantic import BaseModel
 from .http_response import HTTPResponseWrapper,ErrorMessage
 
 class GetValue(BaseModel):
-    value : int
+    value : float
 
 class ResponseGetValue(HTTPResponseWrapper):
     data: GetValue = None
