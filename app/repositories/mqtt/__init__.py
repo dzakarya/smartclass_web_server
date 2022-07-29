@@ -15,12 +15,15 @@ def connect(client, userdata, flags, rc):
     logger.info("Connected with result code "+str(rc))
 
 def on_message(client, userdata, msg):
-    if msg.topic == f'in_{temp_topic}':
-        mqtt.temp = float(msg.payload)
-    elif msg.topic == f'in_{smoke_topic}':
-        mqtt.temp = float(msg.payload)
-    elif msg.topic == f'in_{light_topic}':
-        mqtt.light = float(msg.payload)
+    try:
+        if msg.topic == f'in_{temp_topic}':
+            mqtt.temp = float(msg.payload)
+        elif msg.topic == f'in_{smoke_topic}':
+            mqtt.temp = float(msg.payload)
+        elif msg.topic == f'in_{light_topic}':
+            mqtt.light = float(msg.payload)
+    except Exception as e:
+        logger.error(e)
     logger.info(f"topic:{msg.topic} payload:{msg.payload}")
 
 mqtt.mqtt_client.username_pw_set(mqtt.mqtt_config["username"],mqtt.mqtt_config["password"])
