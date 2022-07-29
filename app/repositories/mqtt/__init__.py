@@ -21,8 +21,7 @@ def on_message(client, userdata, msg):
         mqtt.temp = float(msg.payload)
     elif msg.topic == f'in_{light_topic}':
         mqtt.light = float(msg.payload)
-    logger.info(msg.payload)
-    logger.info(msg.topic)
+    logger.info(f"topic:{msg.topic} payload:{msg.payload}")
 
 mqtt.mqtt_client.username_pw_set(mqtt.mqtt_config["username"],mqtt.mqtt_config["password"])
 mqtt.mqtt_client.on_connect = connect
