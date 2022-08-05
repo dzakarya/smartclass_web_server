@@ -23,4 +23,10 @@ class DB():
         cur.execute(query,val)
         self.conn.commit()
         count = cur.rowcount
-        print(count, "Record inserted successfully")
+
+    def search_data(self, tab_name :str,  date :str, hour :str):
+        cur = self.conn.cursor()
+        query = f"""SELECT * FROM {tab_name} where date = %s and hour = %s"""
+        val = (date,hour)
+        cur.execute(query,val)
+        return cur.fetchall()
