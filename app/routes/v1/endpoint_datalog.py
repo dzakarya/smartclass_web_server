@@ -4,9 +4,8 @@ from ...schemas.api_request import DatalogRequest
 router = APIRouter()
 
 @router.post("/get-data")
-async def get_smoke_status(req : DatalogRequest):
-    logger.info(req.date)
-    logger.info(req.time)
+async def get_smoke_status(req):
+    logger.info(req)
     # return ResponseGetValue(
     #     data={
     #         "value":value
