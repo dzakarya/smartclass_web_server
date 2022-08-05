@@ -16,7 +16,7 @@ class DB():
     def insert_one(self, tab_name :str, value :float):
         cur = self.conn.cursor()
         now = datetime.now(tz)
-        date = now.date()
+        date = now.strftime('%d-%m-%Y')
         hour = now.strftime('%H:%M')
         query = f"""INSERT INTO {tab_name} (date, time, value) VALUES(%s,%s,%s)"""
         val = (date,hour,value)
