@@ -7,3 +7,7 @@ class LightRequest(BaseModel):
 
 class TempRequest(BaseModel):
     value : int
+
+class DatalogRequest(BaseModel):
+    date : str
+    time : str
