@@ -35,8 +35,8 @@ def thread_event(sc):
     except Exception as e:
         logger.error(e)
 
-    sc.enter(5, 1, thread_event, (sc,))
+    sc.enter(60, 1, thread_event, (sc,))
 
 def start_scheduler():
-    s.enter(5, 1, thread_event, (s,))
+    s.enter(60, 1, thread_event, (s,))
     s.run()
