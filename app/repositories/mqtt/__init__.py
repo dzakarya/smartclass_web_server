@@ -17,11 +17,11 @@ def connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     try:
         if msg.topic == f'in_{temp_topic}':
-            mqtt.temp.append(float(msg.payload))  
+            mqtt.temp = float(msg.payload)  
         elif msg.topic == f'in_{smoke_topic}':
-            mqtt.smoke.append(float(msg.payload))
+            mqtt.smoke = float(msg.payload)
         elif msg.topic == f'in_{light_topic}':
-            mqtt.light.append(float(msg.payload)) 
+            mqtt.light = float(msg.payload)
             
     except Exception as e:
         logger.error(e)
