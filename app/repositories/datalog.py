@@ -30,17 +30,17 @@ def get_current_data(date : str, time : str )->GetDataLog:
     )
 
     try:
-        result.temperature = DlHandler.get_temp_value()
+        result.temperature = DlHandler.get_temp_value(date, time)
     except Exception as e:
         logger.error(e)
 
     try:
-        result.smoke = DlHandler.get_smoke_value()
+        result.smoke = DlHandler.get_smoke_value(date, time)
     except Exception as e:
         logger.error(e)
 
     try:
-        result.light = DlHandler.get_light_value()
+        result.light = DlHandler.get_light_value(date, time)
     except Exception as e:
         logger.error(e)
     return result
