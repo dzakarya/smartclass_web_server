@@ -21,8 +21,7 @@ def on_message(client, userdata, msg):
         elif msg.topic == f'in_{smoke_topic}':
             mqtt.smoke = float(msg.payload)
         elif msg.topic == f'in_{light_topic}':
-            mqtt.light = float(msg.payload)
-            
+            mqtt.light = float(msg.payload)            
     except Exception as e:
         logger.error(e)
     logger.info(f"topic:{msg.topic} payload:{msg.payload}")
