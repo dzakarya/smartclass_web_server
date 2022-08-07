@@ -4,9 +4,6 @@ mqtt = MQTT()
 
 from ...config.constant import temp_topic, light_topic, smoke_topic
 from loguru import logger
-from ...model.light_handler import LightHandler
-from ...model.smoke_handler import SmokeHandler
-from ...model.temp_handler import TempHandler
 
 def connect(client, userdata, flags, rc):
     mqtt.mqtt_client.subscribe(f'in_{temp_topic}')
@@ -20,17 +17,12 @@ def connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     try:
         if msg.topic == f'in_{temp_topic}':
-            mqtt.temp = float(msg.payload)
-            THandler = TempHandler()
-            THandler.insert_temp_once(mqtt.temp) 
+            mqtt.temp.append(float(msg.payload))  
         elif msg.topic == f'in_{smoke_topic}':
-            mqtt.smoke = float(msg.payload)
-            SHandler = SmokeHandler()
-            SHandler.insert_smoke_once(mqtt.smoke)
+            mqtt.smoke.append(float(msg.payload))
         elif msg.topic == f'in_{light_topic}':
-            mqtt.light = float(msg.payload)
-            LHandler = LightHandler()
-            LHandler.insert_light_once(mqtt.light)
+            mqtt.light.append(float(msg.payload)) 
+            
     except Exception as e:
         logger.error(e)
     logger.info(f"topic:{msg.topic} payload:{msg.payload}")
@@ -39,4 +31,7 @@ mqtt.mqtt_client.username_pw_set(mqtt.mqtt_config["username"],mqtt.mqtt_config["
 mqtt.mqtt_client.on_connect = connect
 mqtt.mqtt_client.on_message = on_message
 
-mqtt.mqtt_client.connect(mqtt.mqtt_config["host"],mqtt.mqtt_config["port"],60)
+try:
+    mqtt.mqtt_client.connect(mqtt.mqtt_config["host"],mqtt.mqtt_config["port"],60)
+except Exception as e:
+    logger.error(f"Can't Connect to mqtt server with detail : {e}")

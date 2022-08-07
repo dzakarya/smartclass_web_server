@@ -1,5 +1,6 @@
 from .mqtt import mqtt
 from ..config.constant import light_topic
+import RPi.GPIO as GPIO
 
 def set_light(value : int):
     try:

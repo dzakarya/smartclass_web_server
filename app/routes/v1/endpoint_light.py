@@ -19,6 +19,8 @@ async def gettempvalue():
 
 @router.post("/set-light")
 async def setlightvalue(req: LightRequest):
+    logger.info(req.zone1)
+    logger.info(req.zone2)
     return{
         "zone1":req.zone1,
         "zone2":req.zone2

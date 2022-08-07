@@ -1,4 +1,5 @@
 from multiprocessing.managers import Server
+from threading import Thread
 from fastapi import FastAPI
 from loguru import logger
 from .routes import index, api
@@ -12,7 +13,7 @@ from .schemas.http_response import HTTPResponseWrapper,ErrorMessage
 from .core.json import Jsonify
 
 from .repositories.mqtt import mqtt
-from .model.sql import db
+from .worker.db_scheduler import start_scheduler
 log = logger
 def create_http_server() -> FastAPI:
     """Create HTTP Server instance to hold the endpoints"""
@@ -65,3 +66,8 @@ def configure_http_server(server: FastAPI) -> FastAPI:
 
 app = configure_http_server(create_http_server())
 mqtt.mqtt_client.loop_start()
+
+@app.on_event("startup")
+async def startup_event():
+    thread = Thread(target=start_scheduler)
+    thread.start()

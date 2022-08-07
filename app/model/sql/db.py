@@ -1,6 +1,7 @@
 from ...config.constant import *
 import mysql.connector
 from datetime import datetime
+from loguru import logger
 class DB():
     def __init__(self) -> None:
         config = {
@@ -9,8 +10,11 @@ class DB():
             'user':db_user,
             'password':db_password
         }
-        self.conn = mysql.connector.connect(**config
+        try:
+            self.conn = mysql.connector.connect(**config
         ) 
+        except Exception as e:
+            logger.error(f"Can't connect to db with detail : {e}")
 
     
     def insert_one(self, tab_name :str, value :float):

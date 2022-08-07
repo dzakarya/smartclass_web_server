@@ -1,10 +1,14 @@
 import pytz
-
-temp_topic = 'temp_topic'
-light_topic = 'light_topic'
-smoke_topic = 'smoke_topic'
-db_name = 'master'
-db_user = 'root'
-db_host = 'localhost'
-db_password = 'teknologisatujaman'
-tz = pytz.timezone('Asia/Jayapura')
+import os
+temp_topic = os.getenv("SC_MQTT_TEMP_TOPIC")
+light_topic = os.getenv("SC_MQTT_LIGHT_TOPIC")
+smoke_topic = os.getenv("SC_MQTT_SMOKE_TOPIC")
+mqtt_host = os.getenv("SC_MQTT_HOST")
+mqtt_port = int(os.getenv("SC_MQTT_PORT"))
+mqtt_username = os.getenv("SC_MQTT_USERNAME")
+mqtt_password = os.getenv("SC_MQTT_PASSWORD")
+db_name = os.getenv("SC_DB_NAME")
+db_user = os.getenv("SC_DB_USER")
+db_host = os.getenv("SC_DB_HOST")
+db_password = os.getenv("SC_TIMEZONE")
+tz = pytz.timezone(os.getenv("SC_TIMEZONE"))
