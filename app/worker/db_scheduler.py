@@ -16,10 +16,12 @@ def light_thread():
 def smoke_thread():
     SHandler = SmokeHandler()
     SHandler.insert_smoke_once(mqtt.smoke)
+    mqtt.clean_smoke()
 
 def temp_thread():
     THandler = TempHandler()
     THandler.insert_temp_once(mqtt.temp) 
+    mqtt.clean_temp()
 
 def thread_event(sc): 
     try:
