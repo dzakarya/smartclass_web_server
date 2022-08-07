@@ -8,4 +8,7 @@ router = APIRouter()
 @router.post("/get-data")
 async def get_data(req : DatalogRequest):
     data = get_current_data(req.date, req.time)
-    return data.json()
+    return ResponseGetDataLog(
+        data=data,
+        meta=None
+    )
