@@ -10,7 +10,6 @@ class DB():
             'user':db_user,
             'password':db_password
         }
-        logger.info(config)
         try:
             self.conn = mysql.connector.connect(**config
         ) 
