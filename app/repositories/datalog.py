@@ -11,13 +11,12 @@ def get_current_data(date : str, time : str ):
         date="".join(map(str,split_date))
     print(date)
     if len(time) != 5 :
-        split_time = time.split("-")
+        split_time = time.split(":")
         for i in range(len(split_time)):
             if len(split_time[i]) < 2:
                 split_time[i] = "0"+split_time[i]
             if i < len(split_time)-1:
                 split_time[i] = split_time[i]+":"
-            print(split_time)
         time="".join(map(str,split_time))
     print(time)
         
