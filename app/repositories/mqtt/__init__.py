@@ -24,7 +24,6 @@ def on_message(client, userdata, msg):
             mqtt.light = float(msg.payload)            
     except Exception as e:
         logger.error(e)
-    logger.info(f"topic:{msg.topic} payload:{msg.payload}")
 
 mqtt.mqtt_client.username_pw_set(mqtt.mqtt_config["username"],mqtt.mqtt_config["password"])
 mqtt.mqtt_client.on_connect = connect
