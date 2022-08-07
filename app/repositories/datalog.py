@@ -16,7 +16,7 @@ def get_current_data(date : str, time : str ):
             if len(split_time[i]) < 2:
                 split_time[i] = "0"+split_time[i]
             if i < len(split_time)-1:
-                split_time[i] = split_date[i]+":"
+                split_time[i] = split_time[i]+":"
         time="".join(map(str,split_time))
     print(time)
         
