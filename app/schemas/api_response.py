@@ -12,7 +12,7 @@ class GetLightValue(BaseModel):
     zone1 : int
     zone2 : int
 
-class ResponseGetLightValue(ResponseGetValue):
+class ResponseGetLightValue(HTTPResponseWrapper):
     data: GetLightValue = None
     meta: ErrorMessage = None
 
@@ -22,6 +22,6 @@ class GetDataLog(BaseModel):
     light : float
     people : float
 
-class ResponseGetDataLog(GetDataLog):
+class ResponseGetDataLog(HTTPResponseWrapper):
     data: GetDataLog = None
     meta: ErrorMessage = None
