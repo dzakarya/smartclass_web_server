@@ -5,7 +5,7 @@ from ...schemas.api_request import DatalogRequest
 from ...schemas.api_response import ResponseGetDataLog
 router = APIRouter()
 
-@router.post("/get-data",response_model=ResponseGetDataLog)
+@router.post("/get-data")
 async def get_data(req : DatalogRequest):
     data = get_current_data(req.date, req.time)
     return ResponseGetDataLog(
