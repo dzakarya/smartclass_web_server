@@ -8,13 +8,14 @@ class LightRepository():
         self._zone1_pin = 12
         GPIO.setmode(GPIO.BOARD)
         GPIO.setup(self._zone1_pin,GPIO.OUT)
-        self._pwm_zone1 = GPIO.PWM(self._zone1_pin,1000)
-        self._zone1_value = 0
-        self._pwm_zone1.start(self._zone1_value)
+        GPIO.output(self._zone1_pin,GPIO.HIGH)
+        # self._pwm_zone1 = GPIO.PWM(self._zone1_pin,1000)
+        # self._zone1_value = 0
+        # self._pwm_zone1.start(self._zone1_value)
 
     def set_light(self,value : int):
         try:
-            self._pwm_zone1.ChangeDutyCycle(value)
+            logger.info("asd")
         except Exception as e:
             logger.error(e)
 

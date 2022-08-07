@@ -6,9 +6,9 @@ from ...schemas.api_response import ResponseGetLightValue
 from ...schemas.api_request import LightRequest
 router = APIRouter()
 
+Lrep = LightRepository()
 @router.get("/get-light",response_model=ResponseGetLightValue)
 async def gettempvalue():
-    Lrep = LightRepository()
     Lrep.get_light()
     return ResponseGetLightValue(
         data={
@@ -20,7 +20,6 @@ async def gettempvalue():
 
 @router.post("/set-light")
 async def setlightvalue(req: LightRequest):
-    Lrep = LightRepository()
     Lrep.set_light(req.zone1)
     return{
         "zone1":req.zone1,
