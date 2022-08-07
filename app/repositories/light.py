@@ -6,7 +6,7 @@ from loguru import logger
 class LightRepository():
     def __init__(self) -> None:
         self._zone1_pin = 12
-        GPIO.setmode(GPIO.BOARD)
+        GPIO.setmode(GPIO.BCM)
         GPIO.setup(self._zone1_pin,GPIO.OUT)
         GPIO.output(self._zone1_pin,GPIO.HIGH)
         # self._pwm_zone1 = GPIO.PWM(self._zone1_pin,1000)
