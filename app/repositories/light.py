@@ -9,7 +9,7 @@ class LightRepository():
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(self._zone1_pin,GPIO.OUT)
         GPIO.setwarnings(False)
-        self._pwm_zone1 = GPIO.PWM(self._pwm_zone1)
+        self._pwm_zone1 = GPIO.PWM(self._zone1_pin,1000)
         self._zone1_value = 0
         self._pwm_zone1.start(self._zone1_value)
 
