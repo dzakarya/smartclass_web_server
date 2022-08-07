@@ -22,23 +22,25 @@ def get_current_data(date : str, time : str )->GetDataLog:
         time="".join(map(str,split_time))
     
     DlHandler = DataHandler()
-    result = GetDataLog()
+    result = GetDataLog(
+        temperature=0,
+        smoke=0,
+        light=0,
+        people=0
+    )
 
     try:
         result.temperature = DlHandler.get_temp_value()
     except Exception as e:
-        result.temperature = 0
         logger.error(e)
 
     try:
         result.smoke = DlHandler.get_smoke_value()
     except Exception as e:
-        result.smoke = 0
         logger.error(e)
 
     try:
         result.light = DlHandler.get_light_value()
     except Exception as e:
-        result.light = 0
         logger.error(e)
     return result
