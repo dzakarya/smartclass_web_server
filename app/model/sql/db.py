@@ -33,4 +33,4 @@ class DB():
         query = f"""SELECT * FROM {tab_name} where date = %s and time = %s"""
         val = (date,hour)
         cur.execute(query,val)
-        return cur.fetchone()
+        return cur.fetchone()["value"]
