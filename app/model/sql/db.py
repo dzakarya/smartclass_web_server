@@ -30,7 +30,7 @@ class DB():
 
     def search_data(self, tab_name :str,  date :str, hour :str):
         cur = self.conn.cursor()
-        query = f"""SELECT * FROM {tab_name} where date = %s and time = %s"""
+        query = f"""SELECT value FROM {tab_name} where date = %s and time = %s"""
         val = (date,hour)
         cur.execute(query,val)
-        return cur.fetchone()["value"]
+        return cur.fetchone()
