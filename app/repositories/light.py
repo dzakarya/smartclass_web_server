@@ -1,17 +1,26 @@
 from .mqtt import mqtt
 from ..config.constant import light_topic
 import RPi.GPIO as GPIO
+from loguru import logger
 
-def set_light(value : int):
-    try:
-        result = mqtt.publish(f'out_{light_topic}', str(value))
-    except Exception as e:
-        return e
-    return result
+class LightRepository():
+    def __init__(self) -> None:
+        self._zone1_pin = 12
+        GPIO.setup(self._zone1_pin,GPIO.OUT)
+        GPIO.setwarnings(False)
+        self._pwm_zone1 = GPIO.PWM(self._pwm_zone1)
+        self._zone1_value = 0
+        self._pwm_zone1.start(self._zone1_value)
 
-def get_light():
-    try:
-        result = mqtt.light
-    except Exception as e:
-        return e
-    return result
+    def set_light(self,value : int):
+        try:
+            self._pwm_zone1.ChangeDutyCycle(value)
+        except Exception as e:
+            logger.error(e)
+
+    def get_light():
+        try:
+            result = mqtt.light
+        except Exception as e:
+            return e
+        return result
