@@ -15,3 +15,13 @@ class GetLightValue(BaseModel):
 class ResponseGetLightValue(ResponseGetValue):
     data: GetLightValue = None
     meta: ErrorMessage = None
+
+class GetDataLog(BaseModel):
+    temperature : float
+    smoke : float
+    light : float
+    people : float
+
+class ResponseGetDataLog(GetDataLog):
+    data: GetDataLog = None
+    meta: ErrorMessage = None
