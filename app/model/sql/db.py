@@ -10,11 +10,7 @@ class DB():
             'user':db_user,
             'password':db_password
         }
-        try:
-            self.conn = mysql.connector.connect(**config
-        ) 
-        except Exception as e:
-            logger.error(f"Can't connect to db with detail : {e}")
+        self.conn = mysql.connector.connect(**config)
 
     
     def insert_one(self, tab_name :str, value :float):
