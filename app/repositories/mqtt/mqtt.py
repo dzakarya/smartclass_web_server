@@ -42,8 +42,14 @@ class MQTT():
     def light(self, value:float):
         self.light.append(value)
 
+    def light(self):
+        self._light = []
+
     def clean_temp(self):
         self._temp = []
+
+    def clean_smoke(self):
+        self._smoke = []
 
     def publish(self, topic:str, msg:str):
         res = self.mqtt_client.publish(topic,msg)
