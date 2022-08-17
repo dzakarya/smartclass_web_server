@@ -6,7 +6,7 @@ class LightRequest(BaseModel):
 
 
 class TempRequest(BaseModel):
-    value : int
+    value : float 
 
 class DatalogRequest(BaseModel):
     date : str
