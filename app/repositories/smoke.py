@@ -1,5 +1,5 @@
 from .mqtt import mqtt
-from ..config.constant import smoke_topic
+from config.constant import smoke_topic
 
 def set_smoke(value : int):
     try:

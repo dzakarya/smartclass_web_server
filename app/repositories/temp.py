@@ -1,5 +1,5 @@
 from .mqtt import mqtt
-from ..config.constant import temp_topic
+from config.constant import temp_topic
 
 def set_temp(value : int):
     try:

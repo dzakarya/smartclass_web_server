@@ -1,9 +1,9 @@
 from fastapi import APIRouter
 from loguru import logger
 
-from app.repositories.light import get_light,set_light
-from ...schemas.api_response import ResponseGetLightValue
-from ...schemas.api_request import LightRequest
+from repositories.light import get_light,set_light
+from schemas.api_response import ResponseGetLightValue
+from schemas.api_request import LightRequest
 router = APIRouter()
 
 @router.get("/get-light",response_model=ResponseGetLightValue)

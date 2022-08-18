@@ -1,9 +1,9 @@
 import sched
 import time
-from ..model.light_handler import LightHandler
-from ..model.smoke_handler import SmokeHandler
-from ..model.temp_handler import TempHandler
-from ..repositories.mqtt import mqtt
+from model.light_handler import LightHandler
+from model.smoke_handler import SmokeHandler
+from model.temp_handler import TempHandler
+from repositories.mqtt import mqtt
 from loguru import logger
 
 s = sched.scheduler(time.time, time.sleep)

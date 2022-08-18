@@ -1,5 +1,5 @@
 from .mqtt import mqtt
-from ..config.constant import light_topic
+from config.constant import light_topic
 
 def set_light(zone1 : float, zone2 : float):
     try:

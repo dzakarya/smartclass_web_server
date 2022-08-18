@@ -1,4 +1,4 @@
-from ...config.constant import *
+from config.constant import *
 import mysql.connector
 from datetime import datetime
 from loguru import logger

@@ -2,7 +2,7 @@ from .mqtt import MQTT
 
 mqtt = MQTT()
 
-from ...config.constant import temp_topic, light_topic, smoke_topic
+from config.constant import temp_topic, light_topic, smoke_topic
 from loguru import logger
 
 def connect(client, userdata, flags, rc):
