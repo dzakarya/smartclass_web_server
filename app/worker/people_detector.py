@@ -4,8 +4,10 @@ from config.constant import model_path,label_path
 from tflite_runtime.interpreter import Interpreter
 import numpy as np
 import cv2
+from repositories.mqtt import mqtt
 from loguru import logger
 from threading import Thread
+import datetime
 class VideoStream:
     """Camera object that controls video streaming from the Picamera"""
     def __init__(self,url:str,resolution=(640,480),framerate=30):
@@ -53,7 +55,8 @@ class PeopleDetector(threading.Thread):
 
         super(PeopleDetector, self).__init__()
         self.url = url
-
+        self.setLightOff = False
+        self.isEmpty = False
         with open(label_path, 'r') as f:
             self.labels = [line.strip() for line in f.readlines()]
         if self.labels[0] == '???':
@@ -86,6 +89,7 @@ class PeopleDetector(threading.Thread):
         imW, imH = int(resW), int(resH)
         videostream = VideoStream(resolution=(imW,imH),framerate=30,url=self.url).start()
         while True:
+            people_num = 0
             frame1 = videostream.read()
             frame = frame1.copy()
             frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
@@ -103,7 +107,7 @@ class PeopleDetector(threading.Thread):
             classes = self.interpreter.get_tensor(self.output_details[self.classes_idx]['index'])[0] # Class index of detected objects
             scores = self.interpreter.get_tensor(self.output_details[self.scores_idx]['index'])[0] # Confidence of detected objects
             for i in range(len(scores)):
-                if (scores[i] > 0.5):
+                if (scores[i] > 0.6):
 
                     # Get bounding box coordinates and draw box
                     # Interpreter can return coordinates that are outside of image dimensions, need to force them to be within image using max() and min()
@@ -117,13 +121,23 @@ class PeopleDetector(threading.Thread):
                     object_name = self.labels[int(classes[i])] # Look up object name from "labels" array using class index
                     label = '%s: %d%%' % (object_name, int(scores[i]*100)) # Example: 'person: 72%'
                     labelSize, baseLine = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.7, 2) # Get font size
-                    label_ymin = max(ymin, labelSize[1] + 10) # Make sure not to draw label too close to top of window
                     if object_name == "person":
-                        cv2.rectangle(frame, (xmin,ymin), (xmax,ymax), (10, 255, 0), 2)
-                        cv2.rectangle(frame, (xmin, label_ymin-labelSize[1]-10), (xmin+labelSize[0], label_ymin+baseLine-10), (255, 255, 255), cv2.FILLED) # Draw white box to put label text in
-                        cv2.putText(frame, label, (xmin, label_ymin-7), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 0), 2) # Draw label text
-
-                        logger.info(label)
+                        people_num += 1
+            # logger.info(f"Number of people inside room :{people_num}")
+            now = datetime.datetime.now()
+            if people_num == 0:
+                if self.isEmpty == False:
+                    ts1 = datetime.datetime.now()
+                    self.isEmpty = True
+                else:
+                    if (datetime.datetime.now() - ts1).total_seconds() / 60 > 2:
+                        self.setLightOff = True
+            else:
+                self.isEmpty=False
+                self.setLightOff = False
+            logger.info(f"ip : {self.url} person detected : {people_num}")
+            mqtt.people = people_num
+            # logger.info(mqtt.people)
             # cv2.imshow('Object detector', frame)
 
 

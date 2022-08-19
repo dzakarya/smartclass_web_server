@@ -7,6 +7,7 @@ class MQTT():
         self._temp = []
         self._light = []
         self._smoke = []
+        self._people = []
         self.mqtt_config ={
             "host":mqtt_host,
             "port":mqtt_port,
@@ -23,9 +24,6 @@ class MQTT():
     def temp(self, value:float):
         self._temp.append(value)
 
-    def clean_temp(self):
-        self._temp = []
-
     @property
     def smoke(self)->float:
         return max(self._smoke)
@@ -40,9 +38,17 @@ class MQTT():
 
     @light.setter
     def light(self, value:float):
-        self.light.append(value)
+        self._light.append(value)
+        
+    @property
+    def people(self)->int:
+        return round(mean(self._people))
+    
+    @people.setter
+    def people(self, value:int):
+        self._people.append(value)
 
-    def light(self):
+    def clean_light(self):
         self._light = []
 
     def clean_temp(self):
@@ -50,6 +56,15 @@ class MQTT():
 
     def clean_smoke(self):
         self._smoke = []
+    
+    def clean_people(self):
+        self._people = []
+
+    def get_last_light(self):
+        try:
+            return self._light[-1]
+        except:
+            return 0
 
     def publish(self, topic:str, msg:str):
         res = self.mqtt_client.publish(topic,msg)

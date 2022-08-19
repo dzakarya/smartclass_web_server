@@ -1,0 +1,11 @@
+[Unit]
+Description = Smartclass Politeknik Pelayaran Sorong
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/home/smartclass/Desktop/smartclassv2/venv/bin/python /home/smartclass/Desktop/smartclassv2/app/main.py
+EnvironmentFile=/home/smartclass/Desktop/smartclassv2/environment.env
+Restart=always
