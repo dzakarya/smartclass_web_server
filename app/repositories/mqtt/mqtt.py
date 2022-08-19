@@ -1,7 +1,7 @@
 from statistics import mean
 from loguru import logger
 import paho.mqtt.client as mqtt
-from ...config.constant import *
+from config.constant import *
 class MQTT():
     def __init__(self) -> None:
         self._temp = []

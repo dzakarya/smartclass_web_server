@@ -1,8 +1,8 @@
 
-from ..core.json import Jsonify
+from core.json import Jsonify
 from fastapi import APIRouter
-from ..schemas.http_response import HTTPResponseWrapper
-from ..repositories.mqtt import mqtt
+from schemas.http_response import HTTPResponseWrapper
+from repositories.mqtt import mqtt
 router = APIRouter()
 @router.get("/healthzx",
             description="health check",

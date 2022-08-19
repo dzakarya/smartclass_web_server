@@ -1,8 +1,8 @@
 from fastapi import APIRouter
 from loguru import logger
-from ...repositories.datalog import get_current_data
-from ...schemas.api_request import DatalogRequest
-from ...schemas.api_response import ResponseGetDataLog
+from repositories.datalog import get_current_data
+from schemas.api_request import DatalogRequest
+from schemas.api_response import ResponseGetDataLog
 router = APIRouter()
 
 @router.post("/get-data")

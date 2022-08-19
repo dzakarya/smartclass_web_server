@@ -1,5 +1,5 @@
-from ..model.data_handler import DataHandler
-from ..schemas.api_response import GetDataLog
+from model.data_handler import DataHandler
+from schemas.api_response import GetDataLog
 from loguru import logger
 
 def get_current_data(date : str, time : str )->GetDataLog:

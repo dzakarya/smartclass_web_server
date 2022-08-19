@@ -1,9 +1,9 @@
 from fastapi import APIRouter
 from loguru import logger
-from ...schemas.api_response import ResponseGetValue
-from ...schemas.api_request import TempRequest
-from ...repositories.mqtt import mqtt
-from ...repositories.temp import set_temp, get_temp
+from schemas.api_response import ResponseGetValue
+from schemas.api_request import TempRequest
+from repositories.mqtt import mqtt
+from repositories.temp import set_temp, get_temp
 router = APIRouter()
 
 @router.get("/get-temp",response_model=ResponseGetValue)
