@@ -24,3 +24,22 @@ def get_light():
     except Exception as e:
         return e
     return result
+
+def set_automatic(mode:bool):
+    try:
+        mqtt.isautomatic = mode
+    except Exception as e:
+        return e
+    return mqtt.isautomatic
+
+def get_mode():
+    try:
+        return mqtt.isautomatic
+    except Exception as e:
+        return e
+
+def get_last_light():
+    try:
+        return mqtt.get_last_light()
+    except Exception as e:
+        return e

@@ -1,22 +1,25 @@
-from multiprocessing.managers import Server
 from threading import Thread
+
 from fastapi import FastAPI
+
 from loguru import logger
+
 from routes import index, api
-import threading
+
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.requests import Request
 from starlette import status
-from config.constant import lowest_light_value,highest_light_value
+
 from schemas.http_response import HTTPResponseWrapper,ErrorMessage
 
 from core.json import Jsonify
 
-from repositories.mqtt import mqtt
-from worker.db_scheduler import start_scheduler
-from worker.people_detector import PeopleDetector
 import uvicorn
-from repositories.light import set_light
+from repositories.mqtt import mqtt
+
+from worker.db_scheduler import start_scheduler
+from worker.handler import BackgroundTasks
+
 log = logger
 def create_http_server() -> FastAPI:
     """Create HTTP Server instance to hold the endpoints"""
@@ -68,27 +71,6 @@ def configure_http_server(server: FastAPI) -> FastAPI:
 
 
 app = configure_http_server(create_http_server())
-
-class BackgroundTasks(threading.Thread):
-    def __init__(self,) -> None:
-        super(BackgroundTasks,self).__init__()
-        self.detector_thread = PeopleDetector("rtsp://admin:Poltekpelsorong1@192.168.0.8:554/Streaming/channels/2/")
-        self.detector_thread.start()
-        self.detector_thread2 = PeopleDetector("rtsp://admin:Poltekpelsorong1@192.168.0.5:554/Streaming/channels/2/")
-        self.detector_thread2.start()
-        self.isDark = False
-    def run(self,*args,**kwargs):
-        while True:
-            if self.detector_thread.setLightOff and self.detector_thread2.setLightOff:
-                if mqtt.get_last_light() > lowest_light_value:
-                    mqtt.light = lowest_light_value
-                    set_light(lowest_light_value,lowest_light_value)
-                    self.isDark = True
-            else:
-                if mqtt.get_last_light() < highest_light_value and self.isDark==True:
-                    mqtt.light = highest_light_value 
-                    set_light(highest_light_value,highest_light_value)
-                    self.isDark = False
             
 
 @app.on_event("startup")

@@ -8,6 +8,7 @@ class MQTT():
         self._light = []
         self._smoke = []
         self._people = []
+        self._isautomatic = False
         self.mqtt_config ={
             "host":mqtt_host,
             "port":mqtt_port,
@@ -15,6 +16,14 @@ class MQTT():
             "password":mqtt_password
         }
         self.mqtt_client = mqtt.Client()
+
+    @property
+    def isautomatic(self)->bool:
+        return self._isautomatic
+    
+    @isautomatic.setter
+    def isautomatic(self,mode:bool)->None:
+        self._isautomatic=mode
 
     @property
     def temp(self)->float:

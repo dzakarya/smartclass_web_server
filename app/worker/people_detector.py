@@ -135,10 +135,8 @@ class PeopleDetector(threading.Thread):
             else:
                 self.isEmpty=False
                 self.setLightOff = False
-            logger.info(f"ip : {self.url} person detected : {people_num}")
+            # logger.info(f"ip : {self.url} person detected : {people_num}")
             mqtt.people = people_num
-            # logger.info(mqtt.people)
-            # cv2.imshow('Object detector', frame)
 
 
 

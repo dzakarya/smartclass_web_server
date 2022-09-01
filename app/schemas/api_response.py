@@ -11,6 +11,7 @@ class ResponseGetValue(HTTPResponseWrapper):
 class GetLightValue(BaseModel):
     zone1 : int
     zone2 : int
+    mode : bool
 
 class ResponseGetLightValue(HTTPResponseWrapper):
     data: GetLightValue = None
