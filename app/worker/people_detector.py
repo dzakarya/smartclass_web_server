@@ -107,7 +107,7 @@ class PeopleDetector(threading.Thread):
             classes = self.interpreter.get_tensor(self.output_details[self.classes_idx]['index'])[0] # Class index of detected objects
             scores = self.interpreter.get_tensor(self.output_details[self.scores_idx]['index'])[0] # Confidence of detected objects
             for i in range(len(scores)):
-                if (scores[i] > 0.6):
+                if (scores[i] > 0.8):
 
                     # Get bounding box coordinates and draw box
                     # Interpreter can return coordinates that are outside of image dimensions, need to force them to be within image using max() and min()
