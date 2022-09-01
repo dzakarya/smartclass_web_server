@@ -130,7 +130,7 @@ class PeopleDetector(threading.Thread):
                     ts1 = datetime.datetime.now()
                     self.isEmpty = True
                 else:
-                    if (datetime.datetime.now() - ts1).total_seconds() / 60 > 2:
+                    if (datetime.datetime.now() - ts1).total_seconds() / 60 > 0.5:
                         self.setLightOff = True
             else:
                 self.isEmpty=False
