@@ -107,7 +107,7 @@ class PeopleDetector(threading.Thread):
             classes = self.interpreter.get_tensor(self.output_details[self.classes_idx]['index'])[0] # Class index of detected objects
             scores = self.interpreter.get_tensor(self.output_details[self.scores_idx]['index'])[0] # Confidence of detected objects
             for i in range(len(scores)):
-                if (scores[i] > 0.7):
+                if (scores[i] > 0.6):
 
                     # Get bounding box coordinates and draw box
                     # Interpreter can return coordinates that are outside of image dimensions, need to force them to be within image using max() and min()
@@ -130,12 +130,12 @@ class PeopleDetector(threading.Thread):
                     ts1 = datetime.datetime.now()
                     self.isEmpty = True
                 else:
-                    if (datetime.datetime.now() - ts1).total_seconds() / 60 > 2:
+                    if (datetime.datetime.now() - ts1).total_seconds() / 60 > 0.2:
                         self.setLightOff = True
             else:
                 self.isEmpty=False
                 self.setLightOff = False
-            # logger.info(f"ip : {self.url} person detected : {people_num}")
+            logger.info(f"ip : {self.url} person detected : {people_num}")
             mqtt.people = people_num
 
 
