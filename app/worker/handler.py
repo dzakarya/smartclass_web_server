@@ -11,9 +11,9 @@ class BackgroundTasks(threading.Thread):
     
     def __init__(self,) -> None:
         super(BackgroundTasks,self).__init__()
-        self.detector_thread = PeopleDetector("rtsp://admin:Poltekpelsorong1@192.168.0.8:554/Streaming/channels/2/")
+        self.detector_thread = PeopleDetector("rtsp://admin:Poltekpelsorong1@192.168.0.50:554/Streaming/channels/102/")
         self.detector_thread.start()
-        self.detector_thread2 = PeopleDetector("rtsp://admin:Poltekpelsorong1@192.168.0.5:554/Streaming/channels/2/")
+        self.detector_thread2 = PeopleDetector("rtsp://admin:Poltekpelsorong1@192.168.0.50:554/Streaming/channels/302/")
         self.detector_thread2.start()
         self.isDark = False
 
