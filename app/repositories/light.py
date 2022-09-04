@@ -28,6 +28,8 @@ def get_light():
 def set_automatic(mode:bool):
     try:
         mqtt.isautomatic = mode
+        if mode == True:
+            mqtt.startCounter = True
     except Exception as e:
         return e
     return mqtt.isautomatic

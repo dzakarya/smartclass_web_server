@@ -127,17 +127,19 @@ class PeopleDetector(threading.Thread):
             now = datetime.datetime.now()
             if people_num == 0:
                 if self.isEmpty == False:
-                    ts1 = datetime.datetime.now()
+                    self.ts1 = datetime.datetime.now()
                     self.isEmpty = True
                 else:
-                    if (datetime.datetime.now() - ts1).total_seconds() / 60 > 2:
+                    if (datetime.datetime.now() - self.ts1).total_seconds() / 60 > 2:
                         self.setLightOff = True
             else:
                 self.isEmpty=False
                 self.setLightOff = False
             # logger.info(f"ip : {self.url} person detected : {people_num}")
             mqtt.people = people_num
-
+    
+    def reset_counter(self):
+        self.ts1 = datetime.datetime.now()
 
 
   

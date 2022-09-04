@@ -20,6 +20,12 @@ class BackgroundTasks(threading.Thread):
     def run(self,*args,**kwargs):
         while True:
             if mqtt.isautomatic:
+                if mqtt.startCounter:
+                    self.detector_thread.reset_counter()
+                    self.detector_thread2.reset_counter()
+                elif:
+                    mqtt.startCounter = False
+
                 if self.detector_thread.setLightOff and self.detector_thread2.setLightOff:
                     if mqtt.get_last_light() > lowest_light_value:
                         mqtt.light = lowest_light_value

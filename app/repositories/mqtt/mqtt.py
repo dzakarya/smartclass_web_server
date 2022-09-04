@@ -9,6 +9,7 @@ class MQTT():
         self._smoke = []
         self._people = []
         self._isautomatic = False
+        self._startCounter = False
         self.mqtt_config ={
             "host":mqtt_host,
             "port":mqtt_port,
@@ -56,6 +57,14 @@ class MQTT():
     @people.setter
     def people(self, value:int):
         self._people.append(value)
+
+    @property
+    def startCounter(self)->bool:
+        return self._startCounter
+    
+    @startCounter.setter
+    def startCounter(self, status:bool):
+        self._startCounter = status
 
     def clean_light(self):
         self._light = []
