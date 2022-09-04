@@ -89,7 +89,7 @@ class PeopleDetector(threading.Thread):
         imW, imH = int(resW), int(resH)
         videostream = VideoStream(resolution=(imW,imH),framerate=30,url=self.url).start()
         while True:
-            people_num = 0
+            self.people_num = 0
             frame1 = videostream.read()
             frame = frame1.copy()
             frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
@@ -122,10 +122,10 @@ class PeopleDetector(threading.Thread):
                     label = '%s: %d%%' % (object_name, int(scores[i]*100)) # Example: 'person: 72%'
                     labelSize, baseLine = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.7, 2) # Get font size
                     if object_name == "person":
-                        people_num += 1
+                        self.people_num += 1
             # logger.info(f"Number of people inside room :{people_num}")
             now = datetime.datetime.now()
-            if people_num == 0:
+            if self.people_num == 0:
                 if self.isEmpty == False:
                     self.ts1 = datetime.datetime.now()
                     self.isEmpty = True
@@ -138,7 +138,7 @@ class PeopleDetector(threading.Thread):
                 self.isEmpty=False
                 self.setLightOff = False
             # logger.info(f"ip : {self.url} person detected : {people_num}")
-            mqtt.people = people_num
+            mqtt.people = self.people_num
     
     def reset_counter(self):
         self.ts1 = datetime.datetime.now()
