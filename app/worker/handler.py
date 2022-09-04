@@ -24,7 +24,6 @@ class BackgroundTasks(threading.Thread):
                     self.detector_thread.reset_counter()
                     self.detector_thread2.reset_counter()
                     logger.info("Counter is reset ")
-                else:
                     mqtt.startCounter = False
 
                 if self.detector_thread.setLightOff and self.detector_thread2.setLightOff:
