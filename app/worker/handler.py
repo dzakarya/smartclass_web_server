@@ -31,19 +31,10 @@ class BackgroundTasks(threading.Thread):
                         mqtt.light = lowest_light_value
                         set_light(lowest_light_value,lowest_light_value)
                         set_temp(0)
-                        
+                        self.isDark = True
                 else:
                     if mqtt.get_last_light() < highest_light_value and self.isDark==True:
                         mqtt.light = highest_light_value 
                         set_light(highest_light_value,highest_light_value)
                         set_temp(20)
                         self.isDark = False
-
-                #condition when user set dark with automatic mode want to turn all the light without counter
-
-                logger.info("people detected")
-                if self.detector_thread.people_num != 0 or self.detector_thread2.people_num != 0:
-                    if mqtt.get_last_light() < highest_light_value:
-                        mqtt.light = highest_light_value 
-                        set_light(highest_light_value,highest_light_value)
-                        set_temp(20)
